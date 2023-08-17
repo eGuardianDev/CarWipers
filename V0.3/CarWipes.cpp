@@ -137,7 +137,7 @@ void WipersLoop() {
     Serial.println("Spinning is activated, because the button was clicked.");
 
     // Serial.println(WipesAreSuppostToMove);
-    if (CheckTimerFinished() == true && WipesAreSuppostToMove == false) {
+    if (WipesAreSuppostToMove == false) {
       Serial.println(" ======== Started to spin =========");
       StartTimer();
       WipesAreSuppostToMove = true;
@@ -151,7 +151,7 @@ void WipersLoop() {
       // if(HoldedFor >0 ){
       // TimerMilliseconds = TimerMilliseconds - HoldedFor;
       // HoldedFor = 0;
-
+...............
       // }
       Serial.print("Finished at miliseconds: ");
       Serial.println(millis());
@@ -175,6 +175,8 @@ bool CheckTimerFinished() {
   if (HoldedFor > 0) {
     Serial.print("Remvoing Second => ");
     Serial.println(HoldedFor);
+    Serial.print("To wait => ");
+    Serial.println(TimerMilliseconds);
     TimerMilliseconds = TimerMilliseconds - HoldedFor;
     HoldedFor = 0;
     Serial.print("To wait => ");
@@ -182,7 +184,7 @@ bool CheckTimerFinished() {
     Serial.print("Current time=> ");
     Serial.println(millis());
   }
-  if (TimerMilliseconds + WaitMilliSeconds> millis()) {
+  if (TimerMilliseconds + WaitMilliSeconds > millis()) {
     return false;
   }
   return true;
