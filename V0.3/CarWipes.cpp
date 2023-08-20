@@ -1,6 +1,7 @@
 #include "CarWipes.h"
 #include "CommonVariables.h"
 
+#include <EEPROM.h>
 
 bool CheckTimerFinished();
 void StartTimer();
@@ -42,6 +43,14 @@ void AddFullWipe() {
 void SetupWiper() {
   pinMode(WipersPin, OUTPUT);
   TurnOffWipe();
+  int eepromData = 0;
+  EEPROM.get(0, eepromData);
+  if(eepromData <300 ){
+    Serial.println("Error: Timing for swippes to slow; assign new value to EEPROM");
+  }
+  else{
+    WaitMilliSeconds = eepromData;
+  }
   if (DeveloperMode) {
     Serial.println("Setting up wipers");
   }
@@ -151,7 +160,6 @@ void WipersLoop() {
       // if(HoldedFor >0 ){
       // TimerMilliseconds = TimerMilliseconds - HoldedFor;
       // HoldedFor = 0;
-...............
       // }
       Serial.print("Finished at miliseconds: ");
       Serial.println(millis());

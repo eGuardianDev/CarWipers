@@ -14,10 +14,11 @@ extern bool ConstantLoopWiping;
 extern bool WipesAreSuppostToMove;
 
 extern int WipesToDo;
+extern int WaitMilliSeconds;
+
 static const int MaxWipes = 5;
 
 
-static const int WaitMilliSeconds = 1500 ;
 
 
 
